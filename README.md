@@ -74,11 +74,6 @@ Dans `index.html`, bloc JSON LD :
 
 - `addressLocality` vaut `[commune à compléter]`, à remplacer par la commune d’Albert
 
-Dans `index.html`, bloc Open Graph :
-
-- `og:image` est en commentaire, à décommenter quand la photo d’Albert sera disponible,
-  au format 1200 x 630 pixels déposé dans `public/`
-
 ## Formulaire
 
 Le formulaire envoie les demandes via Web3Forms vers l'adresse associée à la clé d'accès.
