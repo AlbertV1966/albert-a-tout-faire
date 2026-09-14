@@ -73,9 +73,6 @@ Dans `src/components/Formations.jsx` :
 Dans `index.html`, bloc JSON LD :
 
 - `addressLocality` vaut `[commune à compléter]`, à remplacer par la commune d’Albert
-- `openingHoursSpecification` contient des horaires par défaut, du lundi au vendredi de 8 h
-  à 18 h et le samedi de 9 h à 12 h. **À confirmer ou corriger** : Google peut les afficher
-  dans les résultats de recherche, et ils doivent correspondre à la fiche Google Business
 
 Dans `index.html`, bloc Open Graph :
 
