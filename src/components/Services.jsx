@@ -1,5 +1,4 @@
-import { Plug, Droplets, Flame, Hammer, PaintRoller, Package, Wrench } from 'lucide-react'
-import Reveal from './Reveal.jsx'
+import { Plug, Droplets, Flame, PaintRoller, Hammer, Wrench } from 'lucide-react'
 
 const SERVICES = [
   {
@@ -18,67 +17,51 @@ const SERVICES = [
     text: 'Purge de radiateurs, thermostat, réglages pour retrouver le confort.',
   },
   {
-    icon: Hammer,
-    title: 'Petits travaux',
-    text: 'Étagères, fixations, poignées, portes qui grincent, réparations du quotidien.',
-  },
-  {
     icon: PaintRoller,
     title: 'Peinture',
     text: 'Murs, plafonds et boiseries, finitions nettes et pièce rendue propre.',
   },
   {
-    icon: Package,
-    title: 'Montage de meubles',
-    text: 'Cuisine, dressing, bibliothèque, je monte et je fixe au millimètre.',
+    icon: Hammer,
+    title: 'Petits travaux',
+    text: 'Étagères, fixations, poignées, portes qui grincent, réparations du quotidien.',
+  },
+  {
+    icon: Wrench,
+    title: 'Autre besoin',
+    text: 'Votre demande ne rentre dans aucune case ? Expliquez, on trouve une solution.',
   },
 ]
 
 export default function Services() {
   return (
-    <section className="section section--cream" id="services">
+    <section className="section section--white" id="services">
       <div className="container">
-        <Reveal className="section-head">
-          <span className="overline">Ce que je fais</span>
-          <h2 className="title-lg">Des travaux bien faits, sans mauvaise surprise</h2>
-          <p className="lead">
-            De la petite réparation au chantier d’une journée, je m’occupe de ce
-            qui traîne depuis trop longtemps chez vous.
-          </p>
-          <hr className="rule" />
-        </Reveal>
+        <div className="section-head">
+          <h2 className="title-section">Ce qu’Albert fait chez vous</h2>
+        </div>
+        <p className="lead">
+          Du dépannage d’une heure au chantier d’une journée, Albert s’occupe de ce qui
+          traîne depuis trop longtemps.
+        </p>
 
-        <div className="card-grid">
-          {SERVICES.map((service, index) => {
+        <ul className="service-list">
+          {SERVICES.map((service) => {
             const Icon = service.icon
             return (
-              <Reveal
-                as="article"
-                className="card"
-                key={service.title}
-                delay={Math.min(index, 5) * 60}
-              >
-                <Icon className="card__icon" size={26} strokeWidth={1.5} aria-hidden="true" />
-                <h3 className="title-sm card__title">{service.title}</h3>
-                <p className="card__text">{service.text}</p>
-              </Reveal>
+              <li className="service-row" key={service.title}>
+                <Icon
+                  className="service-row__icon"
+                  size={24}
+                  strokeWidth={2}
+                  aria-hidden="true"
+                />
+                <h3 className="title-item service-row__title">{service.title}</h3>
+                <p className="service-row__text">{service.text}</p>
+              </li>
             )
           })}
-
-          <Reveal as="article" className="card card--wide" delay={360}>
-            <Wrench className="card__icon" size={26} strokeWidth={1.5} aria-hidden="true" />
-            <div className="card__body">
-              <h3 className="title-sm card__title">Autres travaux sur demande</h3>
-              <p className="card__text">
-                Un besoin qui ne rentre dans aucune case ? Expliquez ce que vous avez en
-                tête, on trouve la bonne solution ensemble.
-              </p>
-            </div>
-            <a className="card__link" href="#contact">
-              En parler avec Albert
-            </a>
-          </Reveal>
-        </div>
+        </ul>
       </div>
     </section>
   )
