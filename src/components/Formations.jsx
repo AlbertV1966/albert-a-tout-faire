@@ -1,10 +1,14 @@
 export default function Formations() {
   return (
-    <section className="section section--white section--ruled" id="formations">
+    <section
+      className="section section--white section--ruled"
+      id="formations"
+      aria-labelledby="formations-titre"
+    >
       <div className="container split">
         <div>
           <span className="pill">Formations et expérience</span>
-          <h2 className="title-section">
+          <h2 className="title-section" id="formations-titre">
             Un métier appris sur le terrain, et sur les bancs.
           </h2>
         </div>

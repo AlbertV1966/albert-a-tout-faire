@@ -46,11 +46,13 @@ export default function ContactForm() {
   }
 
   return (
-    <section className="section section--white" id="contact">
+    <section className="section section--white" id="contact" aria-labelledby="contact-titre">
       <div className="container split">
         <div className="contact__aside">
           <span className="pill">Devis gratuit</span>
-          <h2 className="title-section">Dites-nous ce qu’il faut faire</h2>
+          <h2 className="title-section" id="contact-titre">
+            Dites-nous ce qu’il faut faire
+          </h2>
           <p className="lead">
             Quelques mots suffisent. Albert vous rappelle sous 48 h pour convenir d’un
             passage et vous annoncer un prix, avant de commencer quoi que ce soit.

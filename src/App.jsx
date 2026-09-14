@@ -16,9 +16,10 @@ export default function App() {
       </a>
 
       <Nav />
-      <Hero />
 
+      {/* Le titre H1 de la page vit dans le hero, donc à l'intérieur de main. */}
       <main id="contenu" tabIndex={-1}>
+        <Hero />
         <Services />
         <Formations />
         <Zone />

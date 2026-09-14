@@ -7,10 +7,10 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="canonical" href="https://albertatoutfaire.fr/" />
 
-    <title>Albert à tout faire, artisan multiservices en Pévèle et Métropole de Lille</title>
+    <title>Artisan plombier et multiservices, Pévèle et Métropole de Lille | Albert à tout faire</title>
     <meta
       name="description"
-      content="Albert à tout faire, artisan multiservices en Pévèle : petits travaux, dépannage, plomberie, électricité, peinture. Métropole de Lille, devis gratuit."
+      content="Albert, artisan plombier et multiservices en Pévèle : électricité, chauffage, peinture, dépannage et petits travaux. Devis gratuit, Métropole de Lille."
     />
     <meta name="robots" content="index, follow" />
     <meta name="author" content="Albert à tout faire" />
@@ -21,20 +21,27 @@
     <meta property="og:url" content="https://albertatoutfaire.fr/" />
     <meta
       property="og:title"
-      content="Albert à tout faire, artisan multiservices en Pévèle et Métropole de Lille"
+      content="Artisan plombier et multiservices, Pévèle et Métropole de Lille"
     />
     <meta
       property="og:description"
-      content="Artisan multiservices en Pévèle : petits travaux, dépannage, plomberie, électricité, chauffage, peinture. Interventions en Pévèle et dans la Métropole de Lille, devis gratuit."
+      content="Albert, artisan plombier et multiservices en Pévèle : électricité, chauffage, peinture, dépannage et petits travaux. Devis gratuit dans toute la Métropole de Lille."
     />
+    <!--
+      og:image à compléter quand la photo d'Albert sera disponible.
+      Format attendu : 1200 x 630 pixels, JPG ou PNG, déposé dans le dossier public.
+      Décommenter les deux lignes suivantes et ajuster le nom du fichier.
+      <meta property="og:image" content="https://albertatoutfaire.fr/og-image.jpg" />
+      <meta property="og:image:alt" content="Albert, artisan plombier et multiservices en Pévèle" />
+    -->
     <meta name="twitter:card" content="summary" />
     <meta
       name="twitter:title"
-      content="Albert à tout faire, artisan multiservices en Pévèle et Métropole de Lille"
+      content="Artisan plombier et multiservices, Pévèle et Métropole de Lille"
     />
     <meta
       name="twitter:description"
-      content="Artisan multiservices en Pévèle et Métropole de Lille : petits travaux, dépannage, plomberie, électricité, peinture. Devis gratuit."
+      content="Albert, artisan plombier et multiservices en Pévèle : électricité, chauffage, peinture, dépannage. Devis gratuit, Métropole de Lille."
     />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -47,11 +54,11 @@
     <script type="application/ld+json">
       {
         "@context": "https://schema.org",
-        "@type": "LocalBusiness",
+        "@type": ["LocalBusiness", "HomeAndConstructionBusiness"],
         "@id": "https://albertatoutfaire.fr/#albert-a-tout-faire",
         "name": "Albert à tout faire",
-        "alternateName": "Albert à tout faire, artisan multiservices",
-        "description": "Artisan multiservices en Pévèle : électricité, petite plomberie, petit chauffage, peinture et petits travaux. Interventions en Pévèle et dans la Métropole de Lille, devis gratuit.",
+        "alternateName": "Albert à tout faire, artisan plombier et multiservices",
+        "description": "Artisan plombier et multiservices en Pévèle : plomberie, électricité, chauffage, peinture, petits travaux et dépannage. Interventions en Pévèle et dans la Métropole de Lille, devis gratuit.",
         "url": "https://albertatoutfaire.fr/",
         "image": "https://albertatoutfaire.fr/favicon.svg",
         "logo": "https://albertatoutfaire.fr/favicon.svg",
@@ -60,9 +67,31 @@
         "knowsLanguage": "fr",
         "address": {
           "@type": "PostalAddress",
+          "addressLocality": "[commune à compléter]",
           "addressRegion": "Hauts-de-France",
           "addressCountry": "FR"
         },
+        "knowsAbout": [
+          "Plomberie",
+          "Électricité",
+          "Chauffage",
+          "Peinture",
+          "Petits travaux"
+        ],
+        "openingHoursSpecification": [
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+            "opens": "08:00",
+            "closes": "18:00"
+          },
+          {
+            "@type": "OpeningHoursSpecification",
+            "dayOfWeek": "Saturday",
+            "opens": "09:00",
+            "closes": "12:00"
+          }
+        ],
         "areaServed": [
           { "@type": "Place", "name": "Pévèle" },
           { "@type": "Place", "name": "Métropole européenne de Lille" },
@@ -87,9 +116,9 @@
           "@type": "OfferCatalog",
           "name": "Services d'Albert à tout faire",
           "itemListElement": [
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Plomberie" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Électricité" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Petite plomberie" } },
-            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Petit chauffage" } },
+            { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Chauffage" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Peinture" } },
             { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Petits travaux et dépannage" } }
           ]

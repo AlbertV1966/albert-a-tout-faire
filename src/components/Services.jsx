@@ -4,12 +4,12 @@ const SERVICES = [
   {
     icon: Plug,
     title: 'Électricité',
-    text: 'Prises, interrupteurs, luminaires, remise en ordre du tableau.',
+    text: 'Électricien en Pévèle pour vos prises, interrupteurs, luminaires et la remise en ordre du tableau.',
   },
   {
     icon: Droplets,
     title: 'Petite plomberie',
-    text: 'Fuite, robinet qui goutte, siphon, joints de baignoire ou de douche.',
+    text: 'Le plombier qu’on appelle à Templeuve ou à Cysoing : fuite, robinet qui goutte, siphon, joints de baignoire ou de douche.',
   },
   {
     icon: Flame,
@@ -35,14 +35,17 @@ const SERVICES = [
 
 export default function Services() {
   return (
-    <section className="section section--white" id="services">
+    <section className="section section--white" id="services" aria-labelledby="services-titre">
       <div className="container">
         <div className="section-head">
-          <h2 className="title-section">Ce qu’Albert fait chez vous</h2>
+          <h2 className="title-section" id="services-titre">
+            Ce qu’Albert fait chez vous
+          </h2>
         </div>
         <p className="lead">
-          Du dépannage d’une heure au chantier d’une journée, Albert s’occupe de ce qui
-          traîne depuis trop longtemps.
+          Plombier de métier, électricien et peintre au fil des chantiers, Albert est
+          l’artisan multiservices de la Pévèle et de la Métropole de Lille. Du dépannage
+          d’une heure au chantier d’une journée.
         </p>
 
         <ul className="service-list">

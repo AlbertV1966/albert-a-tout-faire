@@ -15,10 +15,14 @@ const REASONS = [
 
 export default function WhyAlbert() {
   return (
-    <section className="section section--deep on-dark" id="pourquoi">
+    <section
+      className="section section--deep on-dark"
+      id="pourquoi"
+      aria-labelledby="pourquoi-titre"
+    >
       <div className="container">
         <div className="section-head">
-          <h2 className="title-section">
+          <h2 className="title-section" id="pourquoi-titre">
             Pas de plateforme, pas d’intermédiaire. Juste Albert.
           </h2>
         </div>

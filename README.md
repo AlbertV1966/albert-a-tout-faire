@@ -62,12 +62,25 @@ Le schema.org `LocalBusiness` ne contient volontairement ni `telephone` ni `emai
 
 ## Placeholders à compléter
 
-La section « Formations et expérience » contient trois éléments à renseigner avant mise en
-ligne, dans `src/components/Formations.jsx` :
+À renseigner avant mise en ligne.
+
+Dans `src/components/Formations.jsx` :
 
 - `XX ans` en entreprise
 - `[diplôme à compléter]`
 - `[habilitation à compléter]`
+
+Dans `index.html`, bloc JSON LD :
+
+- `addressLocality` vaut `[commune à compléter]`, à remplacer par la commune d’Albert
+- `openingHoursSpecification` contient des horaires par défaut, du lundi au vendredi de 8 h
+  à 18 h et le samedi de 9 h à 12 h. **À confirmer ou corriger** : Google peut les afficher
+  dans les résultats de recherche, et ils doivent correspondre à la fiche Google Business
+
+Dans `index.html`, bloc Open Graph :
+
+- `og:image` est en commentaire, à décommenter quand la photo d’Albert sera disponible,
+  au format 1200 x 630 pixels déposé dans `public/`
 
 ## Formulaire
 
