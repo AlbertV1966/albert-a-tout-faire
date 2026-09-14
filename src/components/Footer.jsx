@@ -7,7 +7,7 @@ export default function Footer() {
           <p className="site-footer__place">Pévèle et Métropole de Lille</p>
         </div>
         <a className="site-footer__link" href="#contact">
-          Nous écrire
+          Me contacter
         </a>
       </div>
     </footer>
