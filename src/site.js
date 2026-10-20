@@ -1,9 +1,9 @@
 /**
  * Données du site, centralisées pour rester faciles à modifier.
  *
- * Le numéro de téléphone n'est jamais écrit en entier dans le code.
- * Il est stocké en deux morceaux, assemblés à l'exécution, et il n'entre
- * dans le DOM qu'au moment où la personne demande à l'afficher.
+ * Le numéro de téléphone et l'adresse e-mail ne sont jamais écrits en entier
+ * dans le code. Ils sont stockés en deux morceaux, assemblés à l'exécution,
+ * et n'entrent dans le DOM qu'au moment où la personne demande à les afficher.
  * Les morceaux passent par un tableau et par join, jamais par une
  * concaténation de littéraux, pour que le bundler ne les recolle pas
  * à la compilation.
@@ -19,6 +19,18 @@ export function phoneDisplay() {
 /** Lien tel: assemblé à l'exécution, sans espace. */
 export function phoneHref() {
   return 'tel:' + PHONE_PARTS.join(' ').replace(/\s/g, '')
+}
+
+const EMAIL_PARTS = ['contact.albertatoutfaire', 'gmail.com']
+
+/** Adresse e-mail pour l'affichage, assemblée à l'exécution. */
+export function emailDisplay() {
+  return EMAIL_PARTS.join('@')
+}
+
+/** Lien mailto: assemblé à l'exécution. */
+export function emailHref() {
+  return 'mailto:' + EMAIL_PARTS.join('@')
 }
 
 export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit'

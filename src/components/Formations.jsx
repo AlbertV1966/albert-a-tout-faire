@@ -15,15 +15,18 @@ export default function Formations() {
 
         <div className="parcours">
           <p>
-            Albert vient du secteur de la plomberie et du sanitaire, où il a passé XX ans
-            en entreprise avant de se mettre à son compte. Il est titulaire de [diplôme à
-            compléter] et détient [habilitation à compléter].
+            Albert a passé plus de 28 ans dans le secteur du sanitaire, du chauffage et de la
+            plomberie, d’abord comme responsable produit puis comme responsable grands comptes
+            chez Van Marcke, distributeur spécialisé. Diplômé d’un DUT Thermique et d’un master
+            en physico-chimie et économie d’énergie, il connaît la technique autant que le
+            terrain : conseil aux installateurs, bureaux d’études et architectes, choix des
+            produits, suivi des chantiers.
           </p>
           <p>
-            Cette expérience, il l’a élargie au fil des chantiers à l’électricité, au
-            chauffage, à la peinture et aux petits travaux du quotidien. Ce qu’il en
-            garde : la rigueur du métier, le goût du travail propre et le respect des règles de
-            sécurité.
+            Aujourd’hui à son compte, il met cette expérience au service des particuliers et
+            des commerçants : plomberie, chauffage, électricité, peinture et petits travaux du
+            quotidien. Ce qu’il en garde : la rigueur du métier, le goût du travail propre et
+            le respect des règles de sécurité.
           </p>
         </div>
       </div>

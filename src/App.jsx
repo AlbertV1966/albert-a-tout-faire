@@ -1,4 +1,5 @@
 import { PhoneProvider } from './phone.jsx'
+import { EmailProvider } from './email.jsx'
 import Nav from './components/Nav.jsx'
 import Hero from './components/Hero.jsx'
 import Services from './components/Services.jsx'
@@ -11,23 +12,25 @@ import Footer from './components/Footer.jsx'
 export default function App() {
   return (
     <PhoneProvider>
-      <a className="skip-link" href="#contenu">
-        Aller au contenu
-      </a>
+      <EmailProvider>
+        <a className="skip-link" href="#contenu">
+          Aller au contenu
+        </a>
 
-      <Nav />
+        <Nav />
 
-      {/* Le titre H1 de la page vit dans le hero, donc à l'intérieur de main. */}
-      <main id="contenu" tabIndex={-1}>
-        <Hero />
-        <Services />
-        <Formations />
-        <Zone />
-        <WhyAlbert />
-        <ContactForm />
-      </main>
+        {/* Le titre H1 de la page vit dans le hero, donc à l'intérieur de main. */}
+        <main id="contenu" tabIndex={-1}>
+          <Hero />
+          <Services />
+          <Formations />
+          <Zone />
+          <WhyAlbert />
+          <ContactForm />
+        </main>
 
-      <Footer />
+        <Footer />
+      </EmailProvider>
     </PhoneProvider>
   )
 }

@@ -711,6 +711,24 @@ svg {
   margin-top: 32px;
 }
 
+.contact__email {
+  margin-top: 18px;
+}
+
+/* L'adresse e-mail est longue : elle passe à la ligne sur petit écran */
+.email-reveal {
+  max-width: 100%;
+}
+
+.email-reveal > span[aria-live] {
+  min-width: 0;
+}
+
+.email-reveal__address {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
 .form-block {
   padding: clamp(24px, 4vw, 40px);
   background-color: var(--mist);
@@ -889,6 +907,14 @@ svg {
   color: var(--accent);
 }
 
+.site-footer__contact {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px 28px;
+  max-width: 100%;
+}
+
 /* --------------------------------------------------------------------------
    16. Mouvement réduit
    -------------------------------------------------------------------------- */
@@ -922,6 +948,10 @@ svg {
     padding: 9px 13px;
     font-size: 0.8125rem;
     white-space: nowrap;
+  }
+
+  .email-reveal .phone-reveal__link {
+    font-size: 0.9375rem;
   }
 
   .btn-row {

@@ -45,6 +45,29 @@ grep -rc -e "06 63 25 36 13" -e "0663253613" dist/
 
 Toutes les lignes doivent afficher `:0`.
 
+## Protection de l'adresse e-mail
+
+Même principe que pour le numéro. L'adresse est stockée en deux morceaux dans `src/site.js`,
+assemblés à l'exécution via `join` :
+
+```js
+const EMAIL_PARTS = ['contact.albertatoutfaire', 'gmail.com']
+```
+
+Elle n'entre dans le DOM, sous forme de lien `mailto:`, qu'au clic sur un bouton « Afficher
+l’e-mail ». Un clic suffit, l'adresse est alors visible aux deux endroits de la page
+(section contact, pied de page). Le composant vit dans `src/email.jsx` et reprend le
+balisage et les styles de la révélation du numéro.
+
+Pour vérifier qu'aucune fuite n'a été introduite :
+
+```bash
+npm run build
+grep -rc -e "contact.albertatoutfaire@gmail.com" -e "mailto:contact" dist/
+```
+
+Toutes les lignes doivent afficher `:0`.
+
 Le schema.org `LocalBusiness` ne contient volontairement ni `telephone` ni `email`.
 
 ## Contenu à modifier
@@ -52,6 +75,7 @@ Le schema.org `LocalBusiness` ne contient volontairement ni `telephone` ni `emai
 | Quoi | Où |
 | --- | --- |
 | Morceaux du numéro | `src/site.js` |
+| Morceaux de l'adresse e-mail | `src/site.js` |
 | Clé Web3Forms du formulaire | `src/site.js` |
 | Communes desservies, deux niveaux | `src/site.js` |
 | Services listés | `src/components/Services.jsx` |
@@ -59,20 +83,6 @@ Le schema.org `LocalBusiness` ne contient volontairement ni `telephone` ni `emai
 | Arguments « pourquoi Albert » | `src/components/WhyAlbert.jsx` |
 | Titre, description, Open Graph, JSON LD | `index.html` |
 | Couleurs, typographie, espacements | `src/styles.css`, section Tokens |
-
-## Placeholders à compléter
-
-À renseigner avant mise en ligne.
-
-Dans `src/components/Formations.jsx` :
-
-- `XX ans` en entreprise
-- `[diplôme à compléter]`
-- `[habilitation à compléter]`
-
-Dans `index.html`, bloc JSON LD :
-
-- `addressLocality` vaut `[commune à compléter]`, à remplacer par la commune d’Albert
 
 ## Formulaire
 

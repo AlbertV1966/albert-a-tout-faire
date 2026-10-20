@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CircleCheck, CircleAlert } from 'lucide-react'
 import { PhoneReveal } from '../phone.jsx'
+import { EmailReveal } from '../email.jsx'
 import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../site.js'
 
 /* Le numéro n'apparaît pas ici non plus, même dans un message d'erreur. */
@@ -59,6 +60,9 @@ export default function ContactForm() {
           </p>
           <div className="contact__phone">
             <PhoneReveal className="phone-reveal--inline" iconSize={19} />
+          </div>
+          <div className="contact__email">
+            <EmailReveal className="phone-reveal--inline" iconSize={19} />
           </div>
         </div>
 
