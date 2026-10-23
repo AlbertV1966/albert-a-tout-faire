@@ -1,7 +1,8 @@
 # Albert à tout faire
 
-Site vitrine statique, une page, pour Albert à tout faire, artisan multiservices en Pévèle
-et dans la Métropole de Lille.
+Site vitrine statique pour Albert à tout faire, artisan multiservices en Pévèle et dans la
+Métropole de Lille. Deux pages : l'accueil (`index.html`) et les mentions légales
+(`mentions-legales.html`), déclarées toutes deux dans `vite.config.js`.
 
 ## Stack
 
@@ -55,9 +56,12 @@ const EMAIL_PARTS = ['contact.albertatoutfaire', 'gmail.com']
 ```
 
 Elle n'entre dans le DOM, sous forme de lien `mailto:`, qu'au clic sur un bouton « Afficher
-l’e-mail ». Un clic suffit, l'adresse est alors visible aux deux endroits de la page
-(section contact, pied de page). Le composant vit dans `src/email.jsx` et reprend le
-balisage et les styles de la révélation du numéro.
+le mail ». Un clic suffit, l'adresse est alors visible partout
+sur la page (barre de navigation, carte du hero, section contact, pied de page). Le
+composant vit dans `src/email.jsx` et reprend le balisage et les styles de la révélation
+du numéro. Sur mobile, dans la barre de navigation, il se réduit à son icône.
+
+La page des mentions légales affiche elle aussi numéro et adresse via ces boutons.
 
 Pour vérifier qu'aucune fuite n'a été introduite :
 
@@ -82,6 +86,8 @@ Le schema.org `LocalBusiness` ne contient volontairement ni `telephone` ni `emai
 | Formations et expérience | `src/components/Formations.jsx` |
 | Arguments « pourquoi Albert » | `src/components/WhyAlbert.jsx` |
 | Titre, description, Open Graph, JSON LD | `index.html` |
+| Mentions légales (SIREN à compléter) | `src/MentionsLegales.jsx` |
+| Ligne légale du pied de page | `src/components/Footer.jsx` |
 | Couleurs, typographie, espacements | `src/styles.css`, section Tokens |
 
 ## Formulaire

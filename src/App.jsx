@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { PhoneProvider } from './phone.jsx'
 import { EmailProvider } from './email.jsx'
 import Nav from './components/Nav.jsx'
@@ -10,6 +11,13 @@ import ContactForm from './components/ContactForm.jsx'
 import Footer from './components/Footer.jsx'
 
 export default function App() {
+  // Arrivée par un lien /#contact (depuis les mentions légales) : la page est
+  // rendue après le chargement, le navigateur n'a pas trouvé l'ancre à temps.
+  useEffect(() => {
+    const target = window.location.hash && document.getElementById(window.location.hash.slice(1))
+    if (target) target.scrollIntoView()
+  }, [])
+
   return (
     <PhoneProvider>
       <EmailProvider>

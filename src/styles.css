@@ -420,6 +420,17 @@ svg {
   display: block;
 }
 
+/* Deux boutons empilés dans la carte du hero, numéro puis e-mail */
+.phone-reveal--large + .phone-reveal--large {
+  margin-top: 12px;
+}
+
+/* L'adresse révélée est longue : sa taille suit la largeur de la carte,
+   pour tenir sur deux lignes au plus, coupées après l'arobase */
+.email-reveal.phone-reveal--large .phone-reveal__link {
+  font-size: clamp(0.875rem, calc((100cqi - 80px) / 15), 1.5rem);
+}
+
 /* Variante lien de la section contact */
 .phone-reveal--inline .phone-reveal__button,
 .phone-reveal--inline .phone-reveal__link {
@@ -467,6 +478,13 @@ svg {
   text-decoration: none;
 }
 
+.site-nav__actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 10px;
+}
+
 /* --------------------------------------------------------------------------
    9. Hero
    -------------------------------------------------------------------------- */
@@ -501,6 +519,7 @@ svg {
 }
 
 .hero__card {
+  container-type: inline-size;
   padding: clamp(26px, 4vw, 36px);
   background-color: var(--green);
   border-radius: var(--radius-lg);
@@ -915,8 +934,57 @@ svg {
   max-width: 100%;
 }
 
+/* Ligne légale, discrète */
+.site-footer__legal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px 32px;
+  margin-top: clamp(28px, 4vw, 40px);
+  padding-top: 22px;
+  border-top: 1px solid var(--line-on-dark);
+  font-size: 0.8125rem;
+  color: var(--on-dark-soft);
+}
+
+.site-footer__legal-link {
+  color: var(--on-dark-soft);
+  text-underline-offset: 3px;
+  transition: color var(--speed) var(--ease);
+}
+
+.site-footer__legal-link:hover {
+  color: var(--accent);
+}
+
 /* --------------------------------------------------------------------------
-   16. Mouvement réduit
+   16. Mentions légales
+   -------------------------------------------------------------------------- */
+.legal {
+  display: grid;
+  gap: clamp(28px, 4vw, 40px);
+  max-width: 68ch;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+.legal__block p {
+  margin-top: 10px;
+  color: var(--ink-soft);
+}
+
+.legal__link {
+  color: var(--green);
+  text-decoration-color: var(--accent);
+  text-underline-offset: 3px;
+}
+
+.legal__link:hover {
+  color: var(--green-deep);
+}
+
+/* --------------------------------------------------------------------------
+   17. Mouvement réduit
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html {
@@ -940,9 +1008,38 @@ svg {
 }
 
 /* --------------------------------------------------------------------------
-   17. Ajustements petits écrans
+   18. Ajustements petits écrans
    -------------------------------------------------------------------------- */
+
+/* Barre de navigation : sous 1024 px, l'adresse révélée se réduit à l'icône
+   (elle reste lue par les lecteurs d'écran et s'affiche en entier dans la
+   page). Largeur nulle plutôt que masquage, pour garder la hauteur de ligne
+   et donc la même hauteur que le bouton voisin. */
+@media (max-width: 1023px) {
+  .email-reveal.phone-reveal--nav .phone-reveal__link {
+    gap: 0;
+  }
+
+  .phone-reveal--nav .email-reveal__address {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* Sans quoi la coupure après l'arobase ajoute une ligne, même en nowrap */
+  .phone-reveal--nav .email-reveal__address wbr {
+    display: none;
+  }
+}
+
 @media (max-width: 559px) {
+  .site-nav__inner {
+    column-gap: 12px;
+  }
+
+  .site-nav__actions {
+    gap: 8px 6px;
+  }
   .phone-reveal--nav .phone-reveal__button,
   .phone-reveal--nav .phone-reveal__link {
     padding: 9px 13px;
@@ -952,6 +1049,20 @@ svg {
 
   .email-reveal .phone-reveal__link {
     font-size: 0.9375rem;
+  }
+
+  /* Sur mobile, le bouton « Afficher le mail » se réduit lui aussi à l'icône */
+  .email-reveal.phone-reveal--nav .phone-reveal__button,
+  .email-reveal.phone-reveal--nav .phone-reveal__link {
+    gap: 0;
+    padding-inline: 11px;
+    font-size: 0.8125rem;
+  }
+
+  .phone-reveal--nav .email-reveal__label {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
   }
 
   .btn-row {

@@ -1,5 +1,6 @@
 import { Check } from 'lucide-react'
 import { PhoneReveal } from '../phone.jsx'
+import { EmailReveal } from '../email.jsx'
 
 const POINTS = [
   'Devis gratuit, prix annoncé avant',
@@ -18,8 +19,8 @@ export default function Hero() {
             vous.
           </h1>
           <p className="hero__lead">
-            Électricité, plomberie, chauffage, peinture, petits travaux. Vous expliquez ce
-            qu’il faut faire, Albert passe, et le travail est fait proprement.
+            Petites réparations, petit bricolage, peinture, dépannage, petits travaux. Vous
+            expliquez ce qu’il faut faire, Albert passe, et le travail est fait proprement.
           </p>
 
           <div className="btn-row">
@@ -35,6 +36,7 @@ export default function Hero() {
         <div className="hero__card">
           <h2>Besoin d’un coup de main ?</h2>
           <PhoneReveal className="phone-reveal--large" iconSize={26} />
+          <EmailReveal className="phone-reveal--large" iconSize={26} />
           <ul className="hero__points">
             {POINTS.map((point) => (
               <li key={point}>

@@ -157,7 +157,7 @@ export default function ContactForm() {
                     name="besoin"
                     required
                     rows={5}
-                    placeholder="Par exemple : remplacer deux prises et poser une étagère dans le salon."
+                    placeholder="Par exemple : réparer une porte qui frotte et poser une étagère dans le salon."
                   />
                 </div>
               </div>

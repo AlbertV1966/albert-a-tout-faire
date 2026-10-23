@@ -24,9 +24,9 @@ export default function Formations() {
           </p>
           <p>
             Aujourd’hui à son compte, il met cette expérience au service des particuliers et
-            des commerçants : plomberie, chauffage, électricité, peinture et petits travaux du
-            quotidien. Ce qu’il en garde : la rigueur du métier, le goût du travail propre et
-            le respect des règles de sécurité.
+            des commerçants : petites réparations, petit bricolage, peinture, dépannage et
+            petits travaux du quotidien. Ce qu’il en garde : la rigueur du métier, le goût
+            du travail propre et le respect des règles de sécurité.
           </p>
         </div>
       </div>

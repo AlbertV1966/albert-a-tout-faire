@@ -1,20 +1,20 @@
-import { Plug, Droplets, Flame, PaintRoller, Hammer, Wrench } from 'lucide-react'
+import { Toolbox, Drill, LifeBuoy, PaintRoller, Hammer, Store, Wrench } from 'lucide-react'
 
 const SERVICES = [
   {
-    icon: Plug,
-    title: 'Électricité',
-    text: 'Électricien en Pévèle pour vos prises, interrupteurs, luminaires et la remise en ordre du tableau.',
+    icon: Toolbox,
+    title: 'Petites réparations',
+    text: 'Petites réparations dans la maison en Pévèle : ce qui est abîmé, décroché ou mal fixé, remis en état proprement.',
   },
   {
-    icon: Droplets,
-    title: 'Petite plomberie',
-    text: 'Le plombier qu’on appelle à Templeuve ou à Cysoing : fuite, robinet qui goutte, siphon, joints de baignoire ou de douche.',
+    icon: Drill,
+    title: 'Petit bricolage',
+    text: 'L’artisan qu’on appelle à Templeuve ou à Cysoing pour le petit bricolage : montage de meubles, joints de baignoire ou de douche, menus travaux.',
   },
   {
-    icon: Flame,
-    title: 'Petit chauffage',
-    text: 'Purge de radiateurs, thermostat, réglages pour retrouver le confort.',
+    icon: LifeBuoy,
+    title: 'Dépannage',
+    text: 'Un souci à régler vite ? Albert passe dans la semaine pour un dépannage du quotidien.',
   },
   {
     icon: PaintRoller,
@@ -25,6 +25,11 @@ const SERVICES = [
     icon: Hammer,
     title: 'Petits travaux',
     text: 'Étagères, fixations, poignées, portes qui grincent, réparations du quotidien.',
+  },
+  {
+    icon: Store,
+    title: 'Protection de vitrines pour commerçants',
+    text: 'Panneaux bois ou OSB posés sur rails, intervention rapide sur Lille et la métropole, dépose comprise sur demande.',
   },
   {
     icon: Wrench,
@@ -43,7 +48,7 @@ export default function Services() {
           </h2>
         </div>
         <p className="lead">
-          Plombier de métier, électricien et peintre au fil des chantiers, Albert est
+          Petites réparations, petit bricolage et peinture : Albert est
           l’artisan multiservices de la Pévèle et de la Métropole de Lille. Du dépannage
           d’une heure au chantier d’une journée.
         </p>

@@ -38,7 +38,7 @@ export function useEmail() {
  * Bouton qui révèle l'adresse, puis devient un lien mailto.
  * Reprend le balisage et les classes de PhoneReveal pour un rendu identique.
  */
-export function EmailReveal({ className = '', iconSize = 18, label = 'Afficher l’e-mail' }) {
+export function EmailReveal({ className = '', iconSize = 18, label = 'Afficher le mail' }) {
   const { revealed, reveal, display, href } = useEmail()
   // Coupure possible après l'arobase, pour les écrans étroits
   const at = display.indexOf('@') + 1
@@ -60,7 +60,7 @@ export function EmailReveal({ className = '', iconSize = 18, label = 'Afficher l
       {revealed ? null : (
         <button type="button" className="phone-reveal__button" onClick={reveal}>
           <Mail size={iconSize} strokeWidth={2} aria-hidden="true" />
-          {label}
+          <span className="email-reveal__label">{label}</span>
         </button>
       )}
     </span>
