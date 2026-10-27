@@ -601,6 +601,68 @@ svg {
   }
 }
 
+/* Photo de chantier : entre l'introduction et la liste sur petit écran,
+   colonne latérale qui accompagne la liste au défilement sur grand écran. */
+.services-layout__media {
+  max-width: 360px;
+  margin-top: clamp(32px, 5vw, 48px);
+}
+
+@media (min-width: 1080px) {
+  .services-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) clamp(300px, 27vw, 360px);
+    grid-template-areas:
+      "intro media"
+      "list media";
+    column-gap: clamp(48px, 5vw, 72px);
+    align-items: start;
+  }
+
+  .services-layout__intro {
+    grid-area: intro;
+  }
+
+  .services-layout__list {
+    grid-area: list;
+  }
+
+  .services-layout__media {
+    grid-area: media;
+    position: sticky;
+    top: calc(var(--nav-height) + 24px);
+    max-width: none;
+    margin-top: 0;
+  }
+}
+
+/* --------------------------------------------------------------------------
+   10 bis. Photos d'Albert
+   -------------------------------------------------------------------------- */
+.photo {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  background-color: var(--mist);
+}
+
+/* Ratio fixé en CSS, recadrage centré sur le sujet à toutes les largeurs */
+.photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+
+.photo--portrait img {
+  aspect-ratio: 4 / 5;
+  object-position: 50% 30%;
+}
+
+.photo--chantier img {
+  aspect-ratio: 2 / 3;
+  object-position: 30% 40%;
+}
+
 /* --------------------------------------------------------------------------
    11. Formations et expérience
    -------------------------------------------------------------------------- */
@@ -626,6 +688,26 @@ svg {
   border-left: 3px solid var(--accent);
   font-size: clamp(1rem, 1.8vw, 1.0625rem);
   color: var(--ink-soft);
+}
+
+/* Variante avec portrait : photo au-dessus du texte sur mobile, à gauche
+   sur desktop ; le titre et le parcours partagent alors la même colonne. */
+.split--media .photo {
+  max-width: 440px;
+}
+
+.split--media .parcours {
+  margin-top: clamp(28px, 4vw, 40px);
+}
+
+@media (min-width: 900px) {
+  .split--media {
+    align-items: center;
+  }
+
+  .split--media .photo {
+    max-width: none;
+  }
 }
 
 /* --------------------------------------------------------------------------

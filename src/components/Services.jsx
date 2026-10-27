@@ -41,19 +41,35 @@ const SERVICES = [
 export default function Services() {
   return (
     <section className="section section--white" id="services" aria-labelledby="services-titre">
-      <div className="container">
-        <div className="section-head">
-          <h2 className="title-section" id="services-titre">
-            Ce qu’Albert fait chez vous
-          </h2>
+      <div className="container services-layout">
+        <div className="services-layout__intro">
+          <div className="section-head">
+            <h2 className="title-section" id="services-titre">
+              Ce qu’Albert fait chez vous
+            </h2>
+          </div>
+          <p className="lead">
+            Petites réparations, petit bricolage et peinture : Albert est
+            l’artisan multiservices de la Pévèle et de la Métropole de Lille. Du dépannage
+            d’une heure au chantier d’une journée.
+          </p>
         </div>
-        <p className="lead">
-          Petites réparations, petit bricolage et peinture : Albert est
-          l’artisan multiservices de la Pévèle et de la Métropole de Lille. Du dépannage
-          d’une heure au chantier d’une journée.
-        </p>
 
-        <ul className="service-list">
+        <figure className="photo photo--chantier services-layout__media">
+          <picture>
+            <source srcSet="/images/albert-chantier.webp" type="image/webp" />
+            <img
+              src="/images/albert-chantier.jpg"
+              width="760"
+              height="1140"
+              loading="lazy"
+              decoding="async"
+              alt="Albert en chantier, montage de mobilier"
+            />
+          </picture>
+        </figure>
+
+        <ul className="service-list services-layout__list">
           {SERVICES.map((service) => {
             const Icon = service.icon
             return (
