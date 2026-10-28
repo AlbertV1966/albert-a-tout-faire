@@ -28,7 +28,7 @@ export default function MentionsLegales() {
                   <p>
                     Albert Vanbremeersch, entrepreneur individuel
                     <br />
-                    19 bis rue d’Avelin, 59710 Pont-à-Marcq
+                    Pont-à-Marcq (59710)
                   </p>
                   {/* Numéro et adresse e-mail révélés au clic, comme sur l'accueil */}
                   <p>
