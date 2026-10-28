@@ -966,6 +966,226 @@ svg {
 }
 
 /* --------------------------------------------------------------------------
+   14 bis. Avis clients
+   -------------------------------------------------------------------------- */
+.avis__bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px 32px;
+  margin-top: clamp(24px, 3vw, 32px);
+}
+
+.avis__invite {
+  margin-top: 0;
+}
+
+.avis__summary {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.avis__average {
+  font-size: clamp(2.5rem, 5vw, 3.25rem);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: var(--green);
+}
+
+.avis__summary-detail {
+  display: grid;
+  gap: 4px;
+  font-size: 0.9375rem;
+  color: var(--ink-soft);
+}
+
+.avis__toggle svg {
+  transition: transform var(--speed) var(--ease);
+}
+
+.avis__toggle[aria-expanded="true"] svg {
+  transform: rotate(180deg);
+}
+
+.avis__form {
+  margin-top: clamp(24px, 3vw, 32px);
+  max-width: 760px;
+  background-color: var(--white);
+}
+
+.field__optional {
+  font-weight: 400;
+  color: var(--ink-soft);
+}
+
+.field__hint {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+/* Note en étoiles : boutons radio natifs, masqués visuellement mais
+   atteignables au clavier (Tab puis flèches) */
+.stars {
+  display: inline-flex;
+  gap: 2px;
+}
+
+.stars__star {
+  color: var(--line-field);
+}
+
+.stars__star--on {
+  color: var(--green);
+  fill: var(--green);
+}
+
+/* Demi-étoile : moitié pleine posée sur une étoile vide */
+.stars__half {
+  position: relative;
+  display: inline-flex;
+}
+
+.stars__half .stars__star--on {
+  position: absolute;
+  inset: 0;
+}
+
+.rating {
+  margin: 20px 0 0;
+  padding: 0;
+  border: 0;
+}
+
+.rating + .field-grid {
+  margin-top: 20px;
+}
+
+.rating legend {
+  padding: 0;
+  margin-bottom: 8px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink);
+}
+
+.rating__stars {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px;
+}
+
+.rating__item {
+  position: relative;
+}
+
+.rating__input {
+  position: absolute;
+  inset: 0;
+  margin: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.rating__label {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+}
+
+.rating__input:focus-visible + .rating__label {
+  outline: 2px solid var(--green);
+  outline-offset: 0;
+}
+
+.rating__value {
+  margin-left: 10px;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--ink-soft);
+}
+
+.consent {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-top: 22px;
+  font-size: 0.9375rem;
+}
+
+.consent input {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0 0;
+  accent-color: var(--green);
+}
+
+.avis__list {
+  display: grid;
+  gap: 20px;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+@media (min-width: 760px) {
+  .avis__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1080px) {
+  .avis__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.avis-card {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: clamp(22px, 3vw, 30px);
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.avis-card__text {
+  flex: 1;
+  color: var(--ink);
+}
+
+.avis-card__meta {
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.avis-card__author {
+  font-size: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.01em;
+  color: var(--ink);
+}
+
+.avis-card__details {
+  margin-top: 2px;
+}
+
+.avis__legal {
+  max-width: 80ch;
+  margin-top: clamp(28px, 4vw, 40px);
+  font-size: 0.8125rem;
+  color: var(--ink-soft);
+}
+
+/* --------------------------------------------------------------------------
    15. Pied de page
    -------------------------------------------------------------------------- */
 .site-footer {

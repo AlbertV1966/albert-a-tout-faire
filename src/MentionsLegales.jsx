@@ -77,6 +77,22 @@ export default function MentionsLegales() {
                     temps du traitement de votre demande.
                   </p>
                   <p>
+                    Le formulaire d’avis collecte votre prénom, l’initiale de votre nom, votre
+                    commune, le type de travaux, votre note et votre commentaire, uniquement pour
+                    publier votre avis sur le site après vérification. Ces données sont envoyées
+                    par e-mail à l’artisan, via le même service Web3Forms. Un avis n’est publié
+                    qu’avec votre consentement, donné en cochant la case prévue à cet effet.
+                    Seuls sont alors publiés le prénom, l’initiale du nom, la commune, le type de
+                    travaux, la note, le commentaire et la date de dépôt. Les avis non publiés
+                    sont supprimés.
+                  </p>
+                  {/* Adresse révélée au clic, comme dans la rubrique Éditeur */}
+                  <p>
+                    Vous pouvez demander à tout moment la modification ou la suppression de votre
+                    avis en écrivant à{' '}
+                    <EmailReveal className="phone-reveal--inline" iconSize={19} />
+                  </p>
+                  <p>
                     La police d’écriture du site est chargée depuis Google Fonts, ce qui transmet
                     l’adresse IP du visiteur à Google.
                   </p>
