@@ -33,6 +33,12 @@ export function emailHref() {
   return 'mailto:' + EMAIL_PARTS.join('@')
 }
 
+/**
+ * Prise de rendez-vous pour une visite de devis (agenda Google). Laisser vide
+ * ('') pour masquer partout le bouton « Réserver une visite de devis gratuite ».
+ */
+export const URL_RESERVATION = 'https://calendar.app.google/HwXZH7ZTytPQbMrr6'
+
 export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit'
 export const WEB3FORMS_ACCESS_KEY = '268cfbf8-fb46-4858-988d-4bb5d25f49ad'
 

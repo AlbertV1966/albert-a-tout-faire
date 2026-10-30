@@ -485,6 +485,27 @@ svg {
   gap: 8px 10px;
 }
 
+/* Lien de menu (Réalisations), discret à côté des boutons de contact */
+.site-nav__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 6px;
+  /* Même interligne que les boutons voisins, pour une même hauteur */
+  line-height: normal;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--white);
+  text-decoration: none;
+  text-underline-offset: 4px;
+  transition: color var(--speed) var(--ease);
+}
+
+.site-nav__link:hover {
+  color: var(--accent);
+  text-decoration: underline;
+}
+
 /* --------------------------------------------------------------------------
    9. Hero
    -------------------------------------------------------------------------- */
@@ -814,6 +835,10 @@ svg {
 
 .contact__email {
   margin-top: 18px;
+}
+
+.contact__booking {
+  margin-top: 28px;
 }
 
 /* L'adresse e-mail est longue : elle passe à la ligne sur petit écran */
@@ -1308,6 +1333,214 @@ svg {
 }
 
 /* --------------------------------------------------------------------------
+   16 bis. Réalisations
+   -------------------------------------------------------------------------- */
+.realisations__list {
+  display: grid;
+  gap: 24px;
+  margin-top: clamp(32px, 4vw, 48px);
+}
+
+@media (min-width: 760px) {
+  .realisations__list {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1080px) {
+  .realisations__list {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.realisation-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background-color: var(--white);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+/* Avant et après côte à côte ; une photo seule prend toute la largeur */
+.realisation-card__photos {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 3px;
+  background-color: var(--white);
+}
+
+.realisation-card__photos--1 {
+  grid-template-columns: 1fr;
+}
+
+.realisation-card__photo {
+  position: relative;
+  display: block;
+  padding: 0;
+  border: 0;
+  background-color: var(--mist);
+  cursor: zoom-in;
+}
+
+.realisation-card__photo img {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: cover;
+}
+
+.realisation-card__photos--2 .realisation-card__photo img {
+  aspect-ratio: 3 / 4;
+}
+
+.realisation-card__photo:focus-visible {
+  outline-offset: -4px;
+}
+
+.realisation-card__tag {
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+  padding: 4px 12px;
+  background-color: var(--green-deep);
+  color: var(--white);
+  border-radius: 999px;
+  font-size: 0.8125rem;
+  font-weight: 500;
+}
+
+.realisation-card__body {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: clamp(20px, 3vw, 26px);
+}
+
+.realisation-card__meta {
+  font-size: 0.875rem;
+  color: var(--ink-soft);
+}
+
+.realisation-card__more {
+  align-self: flex-start;
+  margin-top: 4px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--green);
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  cursor: pointer;
+}
+
+.realisation-card__more:hover {
+  color: var(--green-deep);
+}
+
+/* Agrandissement : boîte de dialogue native (Échap ferme, focus piégé) */
+.lightbox {
+  width: min(1100px, calc(100vw - 24px));
+  max-width: none;
+  max-height: calc(100dvh - 24px);
+  padding: 0;
+  border: 0;
+  border-radius: var(--radius-lg);
+  background-color: var(--green-deep);
+  color: var(--white);
+}
+
+.lightbox::backdrop {
+  background-color: rgba(6, 51, 42, 0.86);
+}
+
+.lightbox__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 14px;
+}
+
+.lightbox__figure img {
+  width: 100%;
+  max-height: calc(100dvh - 200px);
+  object-fit: contain;
+  border-radius: var(--radius);
+}
+
+.lightbox__caption {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 4px 16px;
+  margin-top: 12px;
+  padding-right: 56px;
+  font-size: 0.9375rem;
+  color: var(--on-dark-soft);
+}
+
+.lightbox__count {
+  color: var(--white);
+  font-weight: 500;
+}
+
+.lightbox__close {
+  position: absolute;
+  top: 22px;
+  right: 22px;
+  z-index: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background-color: var(--accent);
+  color: var(--green-deep);
+  cursor: pointer;
+}
+
+.lightbox__close:hover {
+  background-color: var(--accent-hover);
+}
+
+.lightbox__nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.lightbox__arrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  padding: 8px 16px;
+  border: 2px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-sm);
+  background-color: transparent;
+  font-family: inherit;
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--white);
+  cursor: pointer;
+}
+
+.lightbox__arrow:hover {
+  border-color: var(--white);
+  background-color: rgba(255, 255, 255, 0.08);
+}
+
+.lightbox :focus-visible {
+  outline-color: var(--accent);
+}
+
+/* --------------------------------------------------------------------------
    17. Mouvement réduit
    -------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
@@ -1386,6 +1619,44 @@ svg {
   .phone-reveal--nav .email-reveal__label {
     width: 0;
     overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* Lien Réalisations réduit à l'icône, au format des boutons voisins
+     (le libellé reste lu par les lecteurs d'écran) */
+  .site-nav__link {
+    gap: 0;
+    padding: 9px 11px;
+    border: 2px solid rgba(255, 255, 255, 0.45);
+    border-radius: var(--radius-sm);
+    font-size: 0.8125rem;
+  }
+
+  .site-nav__link:hover {
+    border-color: var(--accent);
+    background-color: rgba(45, 212, 138, 0.1);
+    text-decoration: none;
+  }
+
+  .site-nav__link-label {
+    width: 0;
+    overflow: hidden;
+    white-space: nowrap;
+  }
+
+  /* Très petits écrans (320 px) : de quoi garder les trois boutons sur une ligne */
+  @media (max-width: 359px) {
+    .site-nav__link {
+      padding-inline: 8px;
+    }
+  }
+
+  .lightbox__arrow span {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
     white-space: nowrap;
   }
 

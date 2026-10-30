@@ -1,8 +1,8 @@
 import { useState } from 'react'
-import { CircleCheck, CircleAlert } from 'lucide-react'
+import { CalendarCheck, CircleCheck, CircleAlert } from 'lucide-react'
 import { PhoneReveal } from '../phone.jsx'
 import { EmailReveal } from '../email.jsx'
-import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../site.js'
+import { URL_RESERVATION, WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../site.js'
 import { PRESTATIONS } from './Services.jsx'
 
 /* Le numéro n'apparaît pas ici non plus, même dans un message d'erreur. */
@@ -25,11 +25,14 @@ const CHAMPS = [
 ]
 
 /* Objet du mail : « Nouvelle demande : [type], [commune] », précédé de
-   « URGENT » quand l'urgence est cochée. */
+   « URGENT : » quand l'urgence est cochée. Aucun tiret dans les objets. */
 export function sujetDemande({ prestation, commune, urgent }) {
   const sujet = `Nouvelle demande : ${prestation}, ${commune}`
-  return urgent ? `URGENT – ${sujet}` : sujet
+  return urgent ? `URGENT : ${sujet}` : sujet
 }
+
+const MERCI = 'Merci, votre demande est bien reçue.'
+const DELAI = 'Réponse sous 48 h.'
 
 export default function ContactForm() {
   const [status, setStatus] = useState('idle')
@@ -105,12 +108,24 @@ export default function ContactForm() {
           <div className="contact__email">
             <EmailReveal className="phone-reveal--inline" iconSize={19} />
           </div>
+          {URL_RESERVATION ? (
+            <a
+              className="btn btn--quiet contact__booking"
+              href={URL_RESERVATION}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <CalendarCheck size={20} strokeWidth={2} aria-hidden="true" />
+              Réserver une visite de devis gratuite
+              <span className="visually-hidden"> (nouvel onglet)</span>
+            </a>
+          ) : null}
         </div>
 
         <div className="form-block">
           <p className="visually-hidden" role="status" aria-live="polite">
             {status === 'sending' ? 'Envoi de votre demande en cours.' : ''}
-            {status === 'success' ? 'Votre demande a bien été envoyée.' : ''}
+            {status === 'success' ? `${MERCI} ${DELAI}` : ''}
             {status === 'error' ? 'Votre demande n’a pas pu être envoyée.' : ''}
           </p>
 
@@ -119,10 +134,8 @@ export default function ContactForm() {
               <span className="form-success__mark" aria-hidden="true">
                 <CircleCheck size={28} strokeWidth={2} />
               </span>
-              <h3>Votre demande est partie.</h3>
-              <p>
-                Albert vous rappelle très vite au numéro que vous avez laissé. À bientôt.
-              </p>
+              <h3>{MERCI}</h3>
+              <p>{DELAI}</p>
               <button
                 type="button"
                 className="btn btn--quiet"
@@ -287,6 +300,11 @@ export default function ContactForm() {
               >
                 {status === 'sending' ? 'Envoi en cours' : 'Envoyer ma demande'}
               </button>
+
+              <p className="form-note">
+                Vous avez des photos ? Envoyez les en réponse à notre mail, cela nous aide à
+                chiffrer plus vite.
+              </p>
 
               <p className="form-note">
                 Vos informations servent uniquement à vous recontacter. Aucun démarchage,

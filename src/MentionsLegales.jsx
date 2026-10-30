@@ -11,7 +11,7 @@ export default function MentionsLegales() {
           Aller au contenu
         </a>
 
-        <Nav brandHref="/" />
+        <Nav brandHref="/" realisationsHref="/#realisations" />
 
         <main id="contenu" tabIndex={-1}>
           <section className="section section--white" aria-labelledby="mentions-titre">

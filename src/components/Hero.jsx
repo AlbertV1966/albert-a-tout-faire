@@ -1,6 +1,7 @@
-import { Check } from 'lucide-react'
+import { CalendarCheck, Check } from 'lucide-react'
 import { PhoneReveal } from '../phone.jsx'
 import { EmailReveal } from '../email.jsx'
+import { URL_RESERVATION } from '../site.js'
 
 const POINTS = [
   'Devis gratuit, prix annoncé avant',
@@ -30,6 +31,18 @@ export default function Hero() {
             <a className="btn btn--outline-light" href="#formations">
               Voir les formations
             </a>
+            {URL_RESERVATION ? (
+              <a
+                className="btn btn--outline-light"
+                href={URL_RESERVATION}
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                <CalendarCheck size={20} strokeWidth={2} aria-hidden="true" />
+                Réserver une visite de devis gratuite
+                <span className="visually-hidden"> (nouvel onglet)</span>
+              </a>
+            ) : null}
           </div>
         </div>
 

@@ -81,6 +81,8 @@ Le schema.org `LocalBusiness` ne contient volontairement ni `telephone` ni `emai
 | Morceaux du numéro | `src/site.js` |
 | Morceaux de l'adresse e-mail | `src/site.js` |
 | Clé Web3Forms du formulaire | `src/site.js` |
+| Lien de réservation de visite (`URL_RESERVATION`, vide = bouton masqué) | `src/site.js` |
+| Chantiers de la section Réalisations (généré par `npm run photos`) | `src/data/realisations.json` |
 | Communes desservies, deux niveaux | `src/site.js` |
 | Services listés | `src/components/Services.jsx` |
 | Formations et expérience | `src/components/Formations.jsx` |
@@ -96,13 +98,28 @@ Le formulaire envoie les demandes via Web3Forms vers l'adresse associée à la c
 Champs transmis : nom, téléphone, e-mail (facultatif), commune, type de prestation (liste
 alignée sur les services de `src/components/Services.jsx`), description, surface ou nombre
 d'éléments, matériel déjà acheté (oui, non, en partie), urgence (oui ou non) et
-disponibilités. Les champs facultatifs laissés vides ne sont pas transmis. Objet du mail :
-« Nouvelle demande : [type], [commune] », précédé de « URGENT » quand la case est cochée.
-Un champ piège `botcheck` filtre les robots. Les états d'envoi, de succès et d'erreur sont
-annoncés dans une région `aria-live`.
+disponibilités. Nom, téléphone, commune, type de prestation et description sont
+obligatoires. Les champs facultatifs laissés vides ne sont pas transmis. Objet du mail :
+« Nouvelle demande : [type], [commune] », précédé de « URGENT : » quand la case est cochée
+(aucun tiret dans les objets). Après envoi : « Merci, votre demande est bien reçue. Réponse
+sous 48 h. » Un champ piège `botcheck` filtre les robots. Les états d'envoi, de succès et
+d'erreur sont annoncés dans une région `aria-live`.
 
 Pas de photos jointes : chez Web3Forms, les pièces jointes sont réservées aux offres
-payantes.
+payantes. Une phrase sous le formulaire invite à les envoyer en réponse au mail.
+
+## Réservation d'une visite
+
+Le bouton « Réserver une visite de devis gratuite » (accueil et section contact) ouvre
+`URL_RESERVATION` (`src/site.js`) dans un nouvel onglet. Constante vide : bouton masqué.
+
+## Section Réalisations
+
+`src/components/Realisations.jsx` lit `src/data/realisations.json` : une carte par chantier,
+photos avant et après côte à côte quand elles existent, sinon les photos du chantier
+(vignettes 600 px, chargement différé), agrandissement en 1600 px au clic, au clavier
+(flèches pour passer d'une photo à l'autre, Échap pour fermer). Tant que le fichier est vide,
+la section et le lien « Réalisations » du menu ne s'affichent pas.
 
 ## Photos des réalisations
 

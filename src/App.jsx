@@ -7,6 +7,7 @@ import Services from './components/Services.jsx'
 import Formations from './components/Formations.jsx'
 import Zone from './components/Zone.jsx'
 import WhyAlbert from './components/WhyAlbert.jsx'
+import Realisations from './components/Realisations.jsx'
 import Avis from './components/Avis.jsx'
 import ContactForm from './components/ContactForm.jsx'
 import Footer from './components/Footer.jsx'
@@ -35,6 +36,7 @@ export default function App() {
           <Formations />
           <Zone />
           <WhyAlbert />
+          <Realisations />
           <Avis />
           <ContactForm />
         </main>
