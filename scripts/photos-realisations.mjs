@@ -22,11 +22,20 @@
 //
 // Idempotent : relancer le script ne crée aucun doublon (fichiers déjà produits
 // conservés, photos fusionnées par chemin dans le JSON).
+//
+// Photos iPhone HEIC / HEIF (.heic, .heif, quelle que soit la casse) : le sharp
+// installé ne décode pas le HEVC, elles passent donc par libheif-js
+// (WebAssembly, sans dépendance système) : seule l'image principale du fichier
+// est décodée (une rafale ou une Live Photo en contient plusieurs), rotations
+// et miroirs du fichier appliqués, puis convertie en JPEG en mémoire et
+// traitée comme les autres photos. La date de prise de vue est lue avant avec
+// exifr. Le JPEG intermédiaire ne porte aucune métadonnée.
 import { createHash } from 'node:crypto'
 import { copyFile, mkdir, readdir, readFile, rename, rm, stat, unlink, writeFile } from 'node:fs/promises'
 import { existsSync } from 'node:fs'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
+import exifr from 'exifr'
 import sharp from 'sharp'
 
 const ROOT = fileURLToPath(new URL('..', import.meta.url))
@@ -88,6 +97,119 @@ function datePriseDeVue(exif) {
   return dates[0] || null
 }
 
+// --- HEIC / HEIF ------------------------------------------------------------
+
+// Marques « ftyp » des fichiers HEIF encodés en HEVC (iPhone). L'AVIF
+// (« avif », « avis ») reste lu directement par sharp.
+const HEIF_BRANDS = new Set(['heic', 'heix', 'heim', 'heis', 'hevc', 'hevx', 'hevm', 'hevs', 'mif1', 'msf1'])
+
+/** Le contenu est-il un HEIF/HEIC (HEVC) ? Décidé sur le contenu, pas sur l'extension. */
+export function isHeif(buffer) {
+  if (buffer.length < 16 || buffer.toString('latin1', 4, 8) !== 'ftyp') return false
+  const major = buffer.toString('latin1', 8, 12)
+  if (major === 'avif' || major === 'avis') return false
+  if (HEIF_BRANDS.has(major)) return true
+  // Marques compatibles (après la version mineure), en cas de marque majeure générique.
+  const size = buffer.readUInt32BE(0)
+  const brands = []
+  for (let o = 16; o + 4 <= Math.min(size, buffer.length); o += 4) brands.push(buffer.toString('latin1', o, o + 4))
+  return !brands.includes('avif') && brands.some((b) => b === 'heic' || b === 'heix' || b === 'hevc')
+}
+
+// Parcourt les boîtes ISO-BMFF de [start, end) et renvoie chacune (type, début et fin du contenu).
+function* boxes(buffer, start, end) {
+  let o = start
+  while (o + 8 <= end) {
+    let size = buffer.readUInt32BE(o)
+    const type = buffer.toString('latin1', o + 4, o + 8)
+    let header = 8
+    if (size === 1) {
+      if (o + 16 > end) return
+      size = Number(buffer.readBigUInt64BE(o + 8))
+      header = 16
+    } else if (size === 0) {
+      size = end - o
+    }
+    if (size < header || o + size > end) return
+    yield { type, start: o + header, end: o + size }
+    o += size
+  }
+}
+
+/** Identifiant de l'image principale (boîte « pitm » de « meta »), ou null. */
+export function primaryItemId(buffer) {
+  for (const meta of boxes(buffer, 0, buffer.length)) {
+    if (meta.type !== 'meta') continue
+    // « meta » est une FullBox : 4 octets de version / drapeaux avant ses enfants.
+    for (const child of boxes(buffer, meta.start + 4, meta.end)) {
+      if (child.type !== 'pitm') continue
+      const version = buffer[child.start]
+      return version === 0 ? buffer.readUInt16BE(child.start + 4) : buffer.readUInt32BE(child.start + 4)
+    }
+  }
+  return null
+}
+
+let libheifPromise = null
+function loadLibheif() {
+  // Chargé seulement s'il y a un HEIC à traiter (module WebAssembly volumineux).
+  libheifPromise ??= import('libheif-js/wasm-bundle.js').then(async (mod) => {
+    const libheif = mod.default ?? mod
+    await libheif.ready
+    return libheif
+  })
+  return libheifPromise
+}
+
+/**
+ * HEIC -> JPEG en mémoire : seule l'image principale est décodée, avec les
+ * rotations / miroirs du fichier appliqués (pixels déjà à l'endroit, aucune
+ * métadonnée dans le JPEG produit).
+ */
+async function heifVersJpeg(buffer) {
+  const libheif = await loadLibheif()
+  const decoder = new libheif.HeifDecoder()
+  const images = decoder.decode(buffer)
+  try {
+    if (!images.length) throw new Error('aucune image lisible dans ce fichier HEIC')
+    const ids = libheif.heif_js_context_get_list_of_top_level_image_IDs(decoder.decoder)
+    const primary = primaryItemId(buffer)
+    const index = Array.isArray(ids) && ids.length === images.length ? Math.max(0, ids.indexOf(primary)) : 0
+    const image = images[index]
+    const width = image.get_width()
+    const height = image.get_height()
+    const rgba = await new Promise((resolve, reject) => {
+      image.display({ data: new Uint8ClampedArray(width * height * 4), width, height }, (out) =>
+        out ? resolve(out.data) : reject(new Error('décodage HEIC impossible')),
+      )
+    })
+    return await sharp(Buffer.from(rgba.buffer, rgba.byteOffset, rgba.byteLength), {
+      raw: { width, height, channels: 4 },
+    })
+      .removeAlpha()
+      .jpeg({ quality: 95 })
+      .toBuffer()
+  } finally {
+    for (const image of images) image.free()
+    decoder.decoder.delete()
+  }
+}
+
+/** Date de prise de vue d'un HEIC (même logique que l'EXIF des JPEG : la plus ancienne). */
+async function dateHeif(buffer) {
+  try {
+    const tags = await exifr.parse(buffer, { pick: ['DateTimeOriginal', 'CreateDate', 'ModifyDate'] })
+    const dates = Object.values(tags || {})
+      .filter((d) => d instanceof Date && !Number.isNaN(d.getTime()))
+      .map((d) => `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`)
+      .filter((d) => d >= '1990-01-01' && d <= '2100-01-01')
+      .sort()
+    return dates[0] || null
+  } catch {
+    return null
+  }
+}
+
 async function moveFile(from, to) {
   try {
     await rename(from, to)
@@ -139,12 +261,17 @@ async function processPhoto(file, slugChantier) {
   const largePath = path.join(outDir, `${base}.webp`)
   const thumbPath = path.join(outDir, `${base}-600.webp`)
 
-  const meta = await sharp(buffer).metadata()
-  const dateExif = datePriseDeVue(meta.exif)
+  const heif = isHeif(buffer)
+  const dateExif = heif ? await dateHeif(buffer) : datePriseDeVue((await sharp(buffer).metadata()).exif)
   const dateFichier = (await stat(file)).mtime.toISOString().slice(0, 10)
 
+  // HEIC : converti en JPEG (image principale, déjà orientée) seulement s'il
+  // reste une sortie à produire.
+  const todo = !existsSync(largePath) || !existsSync(thumbPath)
+  const source = heif && todo ? await heifVersJpeg(buffer) : buffer
+
   // rotate() applique l'orientation EXIF ; aucune métadonnée n'est recopiée.
-  const pipeline = sharp(buffer, { failOn: 'none' }).rotate()
+  const pipeline = sharp(source, { failOn: 'none' }).rotate()
   const large = existsSync(largePath)
     ? await sharp(largePath).metadata()
     : await pipeline

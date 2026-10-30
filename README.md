@@ -121,5 +121,9 @@ npm run photos
 3. Les originaux traités partent dans `photos-traitees/`. Ces deux dossiers d'originaux
    sont ignorés par git : ils ne sont jamais publiés.
 
+Les photos d'iPhone en HEIC ou HEIF sont acceptées telles quelles : seule l'image principale
+du fichier est gardée (rafale, Live Photo), à l'endroit, avec sa date de prise de vue, et sans
+aucune métadonnée dans les WebP produits.
+
 Le script peut être relancé sans risque : il ne crée aucun doublon. Une photo illisible ou
 un dossier mal nommé est signalé et laissé en place.
