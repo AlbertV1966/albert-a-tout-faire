@@ -38,6 +38,9 @@ const SERVICES = [
   },
 ]
 
+/** Types de prestation proposés dans le formulaire de contact, alignés sur les services. */
+export const PRESTATIONS = SERVICES.map((service) => service.title)
+
 export default function Services() {
   return (
     <section className="section section--white" id="services" aria-labelledby="services-titre">

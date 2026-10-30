@@ -13,3 +13,7 @@ yarn-error.log*
 .idea
 .vscode/*
 !.vscode/extensions.json
+
+# Photos de chantiers : originaux (adresses GPS des clients), jamais committés
+photos-a-traiter/
+photos-traitees/

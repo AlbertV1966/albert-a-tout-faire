@@ -864,6 +864,7 @@ svg {
 }
 
 .field input,
+.field select,
 .field textarea {
   width: 100%;
   padding: 14px 16px;
@@ -888,10 +889,31 @@ svg {
 }
 
 .field input:focus,
+.field select:focus,
 .field textarea:focus {
   outline: none;
   border-color: var(--green);
   box-shadow: 0 0 0 4px rgba(45, 212, 138, 0.45);
+}
+
+/* Case à cocher (urgence) : case et libellé sur une ligne */
+.field--check {
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+}
+
+.field--check input {
+  flex: none;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  accent-color: var(--green);
+  cursor: pointer;
+}
+
+.field--check label {
+  cursor: pointer;
 }
 
 .form-block .btn {

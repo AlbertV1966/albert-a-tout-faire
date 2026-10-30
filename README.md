@@ -93,5 +93,33 @@ Le schema.org `LocalBusiness` ne contient volontairement ni `telephone` ni `emai
 ## Formulaire
 
 Le formulaire envoie les demandes via Web3Forms vers l'adresse associée à la clé d'accès.
-Champs transmis : nom, téléphone, commune, besoin. Un champ piège `botcheck` filtre les
-robots. Les états d'envoi, de succès et d'erreur sont annoncés dans une région `aria-live`.
+Champs transmis : nom, téléphone, e-mail (facultatif), commune, type de prestation (liste
+alignée sur les services de `src/components/Services.jsx`), description, surface ou nombre
+d'éléments, matériel déjà acheté (oui, non, en partie), urgence (oui ou non) et
+disponibilités. Les champs facultatifs laissés vides ne sont pas transmis. Objet du mail :
+« Nouvelle demande : [type], [commune] », précédé de « URGENT » quand la case est cochée.
+Un champ piège `botcheck` filtre les robots. Les états d'envoi, de succès et d'erreur sont
+annoncés dans une région `aria-live`.
+
+Pas de photos jointes : chez Web3Forms, les pièces jointes sont réservées aux offres
+payantes.
+
+## Photos des réalisations
+
+```bash
+npm run photos
+```
+
+1. Déposer les photos dans `photos-a-traiter/`, un sous-dossier par chantier nommé
+   « Commune, travaux » (ex. `Templeuve, peinture d'une chambre`). Une photo dont le nom
+   contient « avant » ou « apres » est classée comme telle, les autres comme photos du
+   chantier.
+2. Le script (`scripts/photos-realisations.mjs`) produit pour chaque photo un WebP qualité
+   80 de 1600 px maxi et une vignette de 600 px, sans aucune métadonnée (EXIF, GPS compris),
+   dans `public/images/realisations/<chantier>/`, et met à jour `src/data/realisations.json`
+   (titre, commune, travaux, date de prise de vue, photos ; du plus récent au plus ancien).
+3. Les originaux traités partent dans `photos-traitees/`. Ces deux dossiers d'originaux
+   sont ignorés par git : ils ne sont jamais publiés.
+
+Le script peut être relancé sans risque : il ne crée aucun doublon. Une photo illisible ou
+un dossier mal nommé est signalé et laissé en place.

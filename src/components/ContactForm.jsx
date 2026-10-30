@@ -3,10 +3,33 @@ import { CircleCheck, CircleAlert } from 'lucide-react'
 import { PhoneReveal } from '../phone.jsx'
 import { EmailReveal } from '../email.jsx'
 import { WEB3FORMS_ACCESS_KEY, WEB3FORMS_ENDPOINT } from '../site.js'
+import { PRESTATIONS } from './Services.jsx'
 
 /* Le numéro n'apparaît pas ici non plus, même dans un message d'erreur. */
 const ERROR_FALLBACK =
   'L’envoi n’a pas abouti. Réessayez dans un instant, ou affichez le numéro pour appeler directement.'
+
+/* Champs envoyés, dans l'ordre où ils apparaissent dans le mail reçu. Les
+   champs facultatifs laissés vides ne sont pas envoyés. */
+const CHAMPS = [
+  'nom',
+  'telephone',
+  'email',
+  'commune',
+  'prestation',
+  'description',
+  'surface_ou_quantite',
+  'materiel_deja_achete',
+  'urgence',
+  'disponibilites',
+]
+
+/* Objet du mail : « Nouvelle demande : [type], [commune] », précédé de
+   « URGENT » quand l'urgence est cochée. */
+export function sujetDemande({ prestation, commune, urgent }) {
+  const sujet = `Nouvelle demande : ${prestation}, ${commune}`
+  return urgent ? `URGENT – ${sujet}` : sujet
+}
 
 export default function ContactForm() {
   const [status, setStatus] = useState('idle')
@@ -18,7 +41,25 @@ export default function ContactForm() {
     setStatus('sending')
     setErrorMessage('')
 
-    const payload = Object.fromEntries(new FormData(form).entries())
+    const data = new FormData(form)
+    const valeur = (name) => String(data.get(name) ?? '').trim()
+    const urgent = data.get('urgence') === 'oui'
+
+    const payload = {
+      access_key: valeur('access_key'),
+      from_name: valeur('from_name'),
+      subject: sujetDemande({
+        prestation: valeur('prestation'),
+        commune: valeur('commune'),
+        urgent,
+      }),
+    }
+    // Piège à robots : transmis seulement s'il a été coché (comme avant).
+    if (data.get('botcheck')) payload.botcheck = data.get('botcheck')
+    for (const name of CHAMPS) {
+      const value = name === 'urgence' ? (urgent ? 'oui' : 'non') : valeur(name)
+      if (value) payload[name] = value
+    }
 
     try {
       const response = await fetch(WEB3FORMS_ENDPOINT, {
@@ -138,7 +179,19 @@ export default function ContactForm() {
                 </div>
               </div>
 
-              <div className="field-grid">
+              <div className="field-grid field-grid--two">
+                <div className="field">
+                  <label htmlFor="email">
+                    Votre e-mail <span className="field__optional">(facultatif)</span>
+                  </label>
+                  <input
+                    id="email"
+                    name="email"
+                    type="email"
+                    autoComplete="email"
+                    placeholder="marie.dubois@exemple.fr"
+                  />
+                </div>
                 <div className="field">
                   <label htmlFor="commune">Votre commune</label>
                   <input
@@ -150,15 +203,80 @@ export default function ContactForm() {
                     placeholder="Templeuve"
                   />
                 </div>
+              </div>
+
+              <div className="field-grid field-grid--two">
                 <div className="field">
-                  <label htmlFor="besoin">Ce qu’il faut faire</label>
+                  <label htmlFor="prestation">Type de prestation</label>
+                  <select id="prestation" name="prestation" required defaultValue="">
+                    <option value="" disabled>
+                      Choisir
+                    </option>
+                    {PRESTATIONS.map((prestation) => (
+                      <option key={prestation} value={prestation}>
+                        {prestation}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+                <div className="field">
+                  <label htmlFor="surface">
+                    Surface ou nombre d’éléments{' '}
+                    <span className="field__optional">(facultatif)</span>
+                  </label>
+                  <input
+                    id="surface"
+                    name="surface_ou_quantite"
+                    type="text"
+                    autoComplete="off"
+                    placeholder="Par exemple : 12 m², 3 portes"
+                  />
+                </div>
+              </div>
+
+              <div className="field-grid">
+                <div className="field">
+                  <label htmlFor="description">Ce qu’il faut faire</label>
                   <textarea
-                    id="besoin"
-                    name="besoin"
+                    id="description"
+                    name="description"
                     required
                     rows={5}
                     placeholder="Par exemple : réparer une porte qui frotte et poser une étagère dans le salon."
                   />
+                </div>
+              </div>
+
+              <div className="field-grid field-grid--two">
+                <div className="field">
+                  <label htmlFor="materiel">
+                    Matériel déjà acheté <span className="field__optional">(facultatif)</span>
+                  </label>
+                  <select id="materiel" name="materiel_deja_achete" defaultValue="">
+                    <option value="">Choisir</option>
+                    <option value="oui">Oui</option>
+                    <option value="non">Non</option>
+                    <option value="en partie">En partie</option>
+                  </select>
+                </div>
+                <div className="field">
+                  <label htmlFor="disponibilites">
+                    Vos disponibilités <span className="field__optional">(facultatif)</span>
+                  </label>
+                  <input
+                    id="disponibilites"
+                    name="disponibilites"
+                    type="text"
+                    autoComplete="off"
+                    placeholder="Par exemple : le mardi après-midi, le samedi matin"
+                  />
+                </div>
+              </div>
+
+              <div className="field-grid">
+                <div className="field field--check">
+                  <input id="urgence" name="urgence" type="checkbox" value="oui" />
+                  <label htmlFor="urgence">C’est urgent</label>
                 </div>
               </div>
 
